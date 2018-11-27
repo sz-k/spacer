@@ -1,5 +1,5 @@
 <!doctype html><html lang=en><head><meta charset=utf-8><title>spaces</title></head><body>
-<input type=number value=5 min=1 id=len style=width:50px>
+<input type=number value=15 min=1 id=len style=width:50px>
 <label>include all<input type=checkbox id=incall></label>
 pool: <b id=pool></b>
 <input type=button value=↺ id=submit><br><br>
@@ -38,7 +38,7 @@ rendered: 〈<pre style="background:#ff5;height:1em;display:inline-block" id=ren
   }
   (() => {
     $('pool').innerHTML = poolCount
-    print(Object.values(spacesAnnotated).join())
+    print(Object.values(spacesAnnotated).join(''))
     outEl.addEventListener('focus', () => outEl.select())
     $('submit').addEventListener('click', () => {
       const spaces = Object.values(spacesAnnotated)

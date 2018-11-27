@@ -38,6 +38,7 @@ rendered: 〈<pre style="background:#ff5;height:1em;display:inline-block" id=ren
   }
   (() => {
     $('pool').innerHTML = poolCount
+    print(Object.values(spacesAnnotated).join())
     outEl.addEventListener('focus', () => outEl.select())
     $('submit').addEventListener('click', () => {
       const spaces = Object.values(spacesAnnotated)

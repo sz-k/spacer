@@ -1,0 +1,64 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><title>spaces</title></head><body>
+<input type=number value=5 min=1 id=len style=width:50px>
+<label>include all<input type=checkbox id=incall></label>
+pool: <b id=pool></b>
+<input type=button value=↺ id=submit><br><br>
+<textarea rows=2 cols=80 id=out></textarea><br>
+rendered: 〈<pre style="background:#ff5;height:1em;display:inline-block" id=rendered>.</pre>〉
+<script>(()=>{
+  const spacesAnnotated = {
+    space: '\u0020',
+    non_breaking_space: '\u00A0',
+    en_space: '\u2002',
+    em_space: '\u2003',
+    three_per_em_space: '\u2004',
+    four_per_em_space: '\u2005',
+    six_per_em_space: '\u2006',
+    figure_space: '\u2007',
+    punctuation_space: '\u2008',
+    thin_space: '\u2009',
+    hair_space: '\u200A',
+    zero_width_space: '\u200B',
+    narrow_no_break_space: '\u202F',
+    medium_mathematical_space: '\u205F',
+    ideographic_space: '\u3000',
+  }
+  const rnd = () => Math.random()
+  const { floor } = Math
+  const $ = id => document.getElementById(id)
+  const outEl = $('out')
+  const poolCount = Object.keys(spacesAnnotated).length
+  const print = s => outEl.value = $('rendered').innerHTML = s
+  const pickRand = a => a[floor(rnd() * a.length)]
+  const shuffle = a => {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = floor(rnd() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]]
+    }
+  }
+  (() => {
+    $('pool').innerHTML = poolCount
+    outEl.addEventListener('focus', () => outEl.select())
+    $('submit').addEventListener('click', () => {
+      const spaces = Object.values(spacesAnnotated)
+      const availCount = spaces.length
+      let targetCount = $('len').value
+      const includeAll = $('incall').checked
+      if (includeAll && targetCount < availCount) {
+        targetCount = $('len').value = availCount
+      }
+      let pool = []
+      if (includeAll) {
+        for (let i = 0, l = Math.ceil(targetCount / availCount); i < l; i++) {
+          pool = [...pool, ...spaces]
+        }
+        shuffle(pool)
+        return print(pool.slice(0, targetCount).join(''))
+      }
+      for (let i = 0; i < targetCount; i++) {
+        pool.push(pickRand(spaces))
+      }
+      print(pool.join(''))
+    })
+  })()
+})()</script>

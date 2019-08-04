@@ -1,3 +1,3 @@
 # spacer
 
-[generate random spaces](https://sz-k.github.io/spacer/)
+[generate random spaces](https://szkrd.github.io/spacer/)
